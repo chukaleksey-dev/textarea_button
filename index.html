@@ -26,6 +26,21 @@
       width: min(100%, 640px);
     }
 
+    .home-link {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      color: #2f73f6;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .home-link:hover,
+    .home-link:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+
     h1 {
       margin: 0 0 20px;
       font-size: 32px;
@@ -68,18 +83,9 @@
       background: #245fd0;
     }
 
-    .results {
+    .result-text {
       display: none;
       margin-top: 18px;
-    }
-
-    .results.show {
-      display: grid;
-      gap: 12px;
-    }
-
-    .results p {
-      margin: 0;
       padding: 16px;
       border-left: 4px solid #2f73f6;
       border-radius: 6px;
@@ -88,6 +94,10 @@
       white-space: pre-wrap;
       overflow-wrap: anywhere;
       background: #ffffff;
+    }
+
+    .result-text.show {
+      display: block;
     }
 
     @media (max-width: 520px) {
@@ -99,17 +109,19 @@
 </head>
 
 <body>
+  <a class="home-link" href="https://chukaleksey-dev.github.io/">На головну</a>
+
   <main class="container">
     <h1>Введіть текст</h1>
     <textarea id="textInput" placeholder="Напишіть текст тут..."></textarea>
     <button id="showButton" type="button">Показати текст</button>
-    <div class="results" id="results"></div>
+    <p class="result-text" id="resultText"></p>
   </main>
 
   <script>
     const textInput = document.getElementById('textInput');
     const showButton = document.getElementById('showButton');
-    const results = document.getElementById('results');
+    const resultText = document.getElementById('resultText');
 
     showButton.addEventListener('click', function () {
       const text = textInput.value.trim();
@@ -118,10 +130,12 @@
         return;
       }
 
-      const paragraph = document.createElement('p');
-      paragraph.textContent = textInput.value;
-      results.appendChild(paragraph);
-      results.classList.add('show');
+      if (resultText.textContent !== '') {
+        resultText.textContent += '\n';
+      }
+
+      resultText.textContent += textInput.value;
+      resultText.classList.add('show');
       textInput.value = '';
       textInput.focus();
     });
