@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Текст из textarea</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #182033;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .container {
+      width: min(100%, 640px);
+    }
+
+    h1 {
+      margin: 0 0 20px;
+      font-size: 32px;
+      text-align: center;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 220px;
+      padding: 16px;
+      border: 2px solid #c8d2e3;
+      border-radius: 8px;
+      font: 18px/1.5 Arial, sans-serif;
+      color: #182033;
+      background: #ffffff;
+      resize: vertical;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #2f73f6;
+      box-shadow: 0 0 0 3px rgba(47, 115, 246, 0.15);
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px 18px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      background: #2f73f6;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #245fd0;
+    }
+
+    p {
+      display: none;
+      margin: 18px 0 0;
+      padding: 16px;
+      border-left: 4px solid #2f73f6;
+      border-radius: 6px;
+      font-size: 20px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: #ffffff;
+    }
+
+    p.show {
+      display: block;
+    }
+
+    @media (max-width: 520px) {
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <h1>Введите текст</h1>
+    <textarea id="textInput" placeholder="Напишите текст здесь..."></textarea>
+    <button id="showButton" type="button">Показать текст</button>
+    <p id="resultText"></p>
+  </main>
+
+  <script>
+    const textInput = document.getElementById('textInput');
+    const showButton = document.getElementById('showButton');
+    const resultText = document.getElementById('resultText');
+
+    showButton.addEventListener('click', function () {
+      resultText.textContent = textInput.value;
+      resultText.classList.toggle('show', textInput.value.trim() !== '');
+    });
+  </script>
+</body>
+
+</html>
