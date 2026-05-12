@@ -68,9 +68,18 @@
       background: #245fd0;
     }
 
-    p {
+    .results {
       display: none;
-      margin: 18px 0 0;
+      margin-top: 18px;
+    }
+
+    .results.show {
+      display: grid;
+      gap: 12px;
+    }
+
+    .results p {
+      margin: 0;
       padding: 16px;
       border-left: 4px solid #2f73f6;
       border-radius: 6px;
@@ -79,10 +88,6 @@
       white-space: pre-wrap;
       overflow-wrap: anywhere;
       background: #ffffff;
-    }
-
-    p.show {
-      display: block;
     }
 
     @media (max-width: 520px) {
@@ -98,17 +103,27 @@
     <h1>Введіть текст</h1>
     <textarea id="textInput" placeholder="Напишіть текст тут..."></textarea>
     <button id="showButton" type="button">Показати текст</button>
-    <p id="resultText"></p>
+    <div class="results" id="results"></div>
   </main>
 
   <script>
     const textInput = document.getElementById('textInput');
     const showButton = document.getElementById('showButton');
-    const resultText = document.getElementById('resultText');
+    const results = document.getElementById('results');
 
     showButton.addEventListener('click', function () {
-      resultText.textContent == textInput.value;
-      resultText.classList.toggle('show', textInput.value.trim() !== '');
+      const text = textInput.value.trim();
+
+      if (text === '') {
+        return;
+      }
+
+      const paragraph = document.createElement('p');
+      paragraph.textContent = textInput.value;
+      results.appendChild(paragraph);
+      results.classList.add('show');
+      textInput.value = '';
+      textInput.focus();
     });
   </script>
 </body>
